@@ -13,11 +13,10 @@ import { useAuthorization } from "../../hook/useAuthorization";
 import { useNavigate } from "react-router-dom";
 
 const Employees = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useAuthorization(
     `${import.meta.env.VITE_API_URL}/api/account/getaccount`,
-    localStorage.getItem("token") ?? "",
-    true
+    localStorage.getItem("token") ?? ""
   );
 
   const { data: fetchData } = useFetchData<{ employees: EmployeesDataType[] }>(
@@ -127,9 +126,9 @@ const Employees = () => {
 
   const onClickLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login")
-  }
-  
+    navigate("/login");
+  };
+
   return (
     <>
       <div className="flex flex-col mb-6 sm:grid sm:grid-cols-12 bg-white bg-opacity-90 rounded-xl whitespace-pre-line break-all">

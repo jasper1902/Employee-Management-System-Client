@@ -5,7 +5,8 @@ const Profile = () => {
   const navigate = useNavigate();
   useAuthorization(
     `${import.meta.env.VITE_API_URL}/api/account/getaccount`,
-    localStorage.getItem("token") ?? ""
+    localStorage.getItem("token") ?? "",
+    false
   );
 
   const onClickLogout = () => {

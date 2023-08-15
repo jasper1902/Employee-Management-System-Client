@@ -16,13 +16,13 @@ const RegisterForm = () => {
     const { register, handleSubmit, formState, getValues } = useForm<RegisterFormType>()
     const { errors } = formState
     const navigate = useNavigate();
-    const [postData, { statusText, hasError, errorMessage }] = usePostRequest<{ message: string }>(`${import.meta.env.VITE_API_URL}/api/account/register`)
+    const [postData, { statusCode, hasError, errorMessage }] = usePostRequest<{ message: string }>(`${import.meta.env.VITE_API_URL}/api/account/register`)
 
     useEffect(() => {
-        if (statusText === "Created") {
+        if (statusCode === 201) {
             navigate("/login")
         }
-    }, [navigate, statusText])
+    }, [navigate, statusCode])
 
     const onSubmit = (data: RegisterFormType) => {
         const obj = {

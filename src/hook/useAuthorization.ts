@@ -25,13 +25,11 @@ type ApiResponse<T> = {
 export const useAuthorization = <T extends User>(
   url: string,
   token?: string,
-  admin: boolean = false
+  admin: boolean = true
 ): ApiResponse<T> => {
   const navigate = useNavigate();
   const { data, isLoading, hasError, errorMessage, status, statusText, error } =
     useFetchData<T>(url, token);
-
-  const { user } = data || { user: { token: "", role: "" } };
 
   const memoizedNavigate = useCallback(
     (path: string) => navigate(path),
@@ -40,18 +38,17 @@ export const useAuthorization = <T extends User>(
 
   useEffect(() => {
     if (isLoading) return;
-    if (!user.token) {
+    if (!data?.user?.token) {
       memoizedNavigate("/login");
       return;
     }
-
-    if (admin) {
-      if (user.role !== "admin") {
-        memoizedNavigate("/login");
-        return;
-      }
+    localStorage.setItem("token", data?.user.token);
+    if (!admin) return alert("You do not have permission");
+    if (data?.user?.role !== "admin") {
+      memoizedNavigate("/login");
+      return;
     }
-  }, [admin, isLoading, memoizedNavigate, user.role, user.token]);
+  }, [isLoading, memoizedNavigate, data, admin]);
 
   return {
     data,

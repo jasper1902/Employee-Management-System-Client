@@ -64,7 +64,8 @@ const LoginForm = () => {
                     {hasError && <label className="flex items-center justify-between select-none">
                         <span className="text-sm text-red-600">{errorMessage}</span>
                     </label>}
-
+                    <p>email: admin@gmail.com, username: admin</p>
+                    <p>password: admin1234</p>
                     <div className="flex justify-between"><label className="block text-gray-500 font-bold my-4"><input type="checkbox"
                         className="leading-loose text-pink-600" /> <span className="py-2 text-sm text-gray-600 leading-snug"> Remember
                             Me </span></label>  </div>
