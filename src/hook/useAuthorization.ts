@@ -38,15 +38,17 @@ export const useAuthorization = <T extends User>(
 
   useEffect(() => {
     if (isLoading) return;
+
     if (!data?.user?.token) {
       memoizedNavigate("/login");
       return;
     }
+
     localStorage.setItem("token", data?.user.token);
-    if (!admin) return alert("You do not have permission");
-    if (data?.user?.role !== "admin") {
+
+    if (admin && data?.user?.role !== "admin") {
+      alert("You do not have permission");
       memoizedNavigate("/login");
-      return;
     }
   }, [isLoading, memoizedNavigate, data, admin]);
 
